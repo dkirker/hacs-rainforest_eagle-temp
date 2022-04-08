@@ -1,6 +1,6 @@
 """Constants for the Rainforest Eagle integration."""
 
-DOMAIN = "rainforest_eagle"
+DOMAIN = "rainforest_eagle_dev"
 CONF_CLOUD_ID = "cloud_id"
 CONF_INSTALL_CODE = "install_code"
 CONF_HARDWARE_ADDRESS = "hardware_address"

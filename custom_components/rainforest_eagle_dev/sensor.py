@@ -22,21 +22,21 @@ SENSORS = (
     SensorEntityDescription(
         key="zigbee:InstantaneousDemand",
         # We can drop the "Eagle-200" part of the name in HA 2021.12
-        name="Eagle-200 Meter Power Demand",
+        name="Meter Power Demand",
         native_unit_of_measurement=POWER_KILO_WATT,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
     ),
     SensorEntityDescription(
         key="zigbee:CurrentSummationDelivered",
-        name="Eagle-200 Total Meter Energy Delivered",
+        name="Total Meter Energy Delivered",
         native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL_INCREASING,
     ),
     SensorEntityDescription(
         key="zigbee:CurrentSummationReceived",
-        name="Eagle-200 Total Meter Energy Received",
+        name="Total Meter Energy Received",
         native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL_INCREASING,

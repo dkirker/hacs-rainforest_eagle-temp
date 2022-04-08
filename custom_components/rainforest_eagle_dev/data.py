@@ -8,7 +8,7 @@ import aioeagle
 import aiohttp
 import async_timeout
 from requests.exceptions import ConnectionError as ConnectError, HTTPError, Timeout
-from uEagle import Eagle as Eagle100Reader
+from .uEagle import Eagle as Eagle100Reader
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_TYPE
@@ -69,7 +69,7 @@ async def async_get_type(hass, cloud_id, install_code, host):
     reader = Eagle100Reader(cloud_id, install_code, host)
 
     try:
-        response = await hass.async_add_executor_job(reader.get_network_info)
+        response = await hass.async_add_executor_job(reader.get_device_list)
     except ValueError as err:
         # This could be invalid auth because it doesn't check 401 and tries to read JSON.
         raise InvalidAuth from err
@@ -79,8 +79,8 @@ async def async_get_type(hass, cloud_id, install_code, host):
 
     # Branch to test if target is Legacy Model
     if (
-        "device_model_id" in response
-        and response["device_model_id"] == "Z109-EAGLE"
+        "device_model_id[0]" in response
+        and response["device_model_id[0]"] == "Z109-EAGLE"
     ):
         return TYPE_EAGLE_100, None
 

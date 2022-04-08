@@ -1,4 +1,5 @@
 {
-    "name": "Rainforest Eagle",
-    "domains": ["sensor"]
+    "name": "Rainforest Eagle Dev",
+    "domains": ["sensor"],
+    "iot_class": "Local Polling"
 }

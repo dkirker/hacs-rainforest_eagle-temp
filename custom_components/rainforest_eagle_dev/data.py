@@ -23,6 +23,7 @@ from .const import (
     CONF_INSTALL_CODE,
     TYPE_EAGLE_100,
     TYPE_EAGLE_200,
+    ISO4217_CURRENCY_CODES,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -191,6 +192,19 @@ class EagleDataCoordinator(DataUpdateCoordinator):
 
         resp = self.eagle100_reader.get_price()["PriceCluster"]
         out["zigbee:Price"] = resp["Price"]
-        out["zigbee:PriceCurrency"] = resp["Currency"]
+        out["zigbee:PriceCurrency"] = self._zigbee_currency_to_str(resp["Currency"])
+        #out["zigbee:PriceTrailingDigits"] = resp["TrailingDigits"]
+        #out["zigbee:PriceRateLabel"] = resp["RateLabel"]
+
+        return out
+
+    def _zigbee_currency_to_str(self, currency_code):
+        out = str(currency_code)
+
+        if type(currency_code) is str:
+            currency_code = int(currency_code)
+
+        if currency_code in ISO4217_CURRENCY_CODES:
+            out = ISO4217_CURRENCY_CODES[currency_code]["AlphaCode"]
 
         return out

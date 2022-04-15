@@ -82,7 +82,7 @@ async def async_get_type(hass, cloud_id, install_code, host):
         "device_model_id[0]" in response
         and response["device_model_id[0]"] == "Z109-EAGLE"
     ):
-        return TYPE_EAGLE_100, None
+        return TYPE_EAGLE_100, response["device_mac_id[0]"]
 
     return None, None
 
@@ -188,5 +188,9 @@ class EagleDataCoordinator(DataUpdateCoordinator):
         resp = self.eagle100_reader.get_current_summation()["CurrentSummation"]
         out["zigbee:CurrentSummationDelivered"] = resp["SummationDelivered"]
         out["zigbee:CurrentSummationReceived"] = resp["SummationReceived"]
+
+        resp = self.eagle100_reader.get_price()["PriceCluster"]
+        out["zigbee:Price"] = resp["Price"]
+        out["zigbee:PriceCurrency"] = resp["Currency"]
 
         return out
